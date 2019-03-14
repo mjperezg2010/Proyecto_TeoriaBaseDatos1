@@ -20,10 +20,36 @@
 	
 	
 	?>
+    
+    <!-- Invocar base de datos comercio-->
+    <?php
+		$db_host="localhost";
+		$db_nombre="maquinasrecreativas";	
+		$db_usuario="root";
+		$db_contra="";
+		
+		$conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
+		mysqli_set_charset($conexion,"utf8");
+		$query="SELECT * FROM comercio";
+		$resultados=mysqli_query($conexion,$query);
+		
+		$arrayComercios=array();
+		$contComercios=0;
+		while(($fila=mysqli_fetch_row($resultados))){
+			$cont=0;
+			while($cont<=6){
+				$arrayComercios[$contComercios][$cont]=$fila[$cont];
+				$cont++;
+			}
+			$contComercios++;
+	}
+	
+	
+	?>
 
 
 
-	<!-- Invocar base de datos -->
+	<!-- Invocar base de datos maquinas -->
 	<?php
 		$db_host="localhost";
 		$db_nombre="maquinasrecreativas";	
@@ -63,31 +89,36 @@
 		
 		if(isset($_POST["1"])){
 			global $idComercio;
-			$idComercio=IdRetornado($_POST["1"]);
+			$idComercio=$_POST["1"];
+			echo $idComercio;
 			
 		}
 		
 		if(isset($_POST["2"])){
 			global $idComercio;
-			$idComercio=IdRetornado($_POST["2"]);
+			$idComercio=$_POST["2"];
+			echo $idComercio;
 			
 		}
 		
 		if(isset($_POST["3"])){
 			global $idComercio;
-			$idComercio=IdRetornado($_POST["3"]);
+			$idComercio=$_POST["3"];
+			echo $idComercio;
 			
 		}
 		
 		if(isset($_POST["4"])){
 			global $idComercio;
-			$idComercio=IdRetornado($_POST["4"]);
+			$idComercio=$_POST["4"];
+			echo $idComercio;
 			
 		}
 		
 		if(isset($_POST["5"])){
 			global $idComercio;
-			$idComercio=IdRetornado($_POST["5"]);
+			$idComercio=$_POST["5"];
+			echo $idComercio;
 			
 		}
 
@@ -97,6 +128,7 @@
 
 
 
+	<!-- Contenido html -->
 
 	<h1 style="text-align:center"> Maquinas a Distribuir</h1>
 	 <div class="container">
@@ -136,10 +168,46 @@
                      </table>
                  </form>
             </div>
+            
+            
+            
 
 
-
-
+		<!-- Funcion para obtener el id del comercio enviado desde la otra pagina
+		<?php
+		
+			function obtenerIdComercio(){
+				global $arrayComercios;
+				global $idComercio;
+				$contComercios=0;
+				while($contComercios<=count($arrayComercios)-1){
+					if($arrayComercios[$contComercios][3]==$idComercio){
+						return $arrayComercios[$contComercios][0];
+					}
+					$contComercios++;	
+				}	
+			}
+		?>
+        
+        <!-- Funcion para botones de las maquinas -->
+        <?php
+			//if(isset(_$POST["0-1"])){
+				
+				
+			//}
+		
+		
+		
+		?>
+        
+        <!-- Funcion para hacer el update de la maquina -->
+        <?php
+		
+		
+		
+		
+		?>
+        
 
 
 
