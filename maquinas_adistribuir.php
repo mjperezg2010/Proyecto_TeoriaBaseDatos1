@@ -151,13 +151,13 @@
         <!-- Funcion para botones de las maquinas -->
         <?php
 		
-			for($i=0;$i<count($arrayMaquinas);$i++){
+			for($i=0;$i<$num;$i++){
 				if(isset($_POST[strval($i)])){
 					//global $idComercio;
 					session_start();
 					ob_start();
 					echo $_SESSION['idComercio'];
-					updateMaquina();
+					updateMaquina($_POST[strval($i)]);
 				
 				}
 			}
@@ -175,10 +175,17 @@
         <?php
 			
 			
-			function updateMaquina(){
-				
-				//Obtener la funcion
-				
+			function updateMaquina($nombreMaquina){
+				$idMaquina=0;
+				global $arrayMaquinas;
+				//Obtener el id de Maquina
+				for($i=0;$i<count($arrayMaquinas);$i++){
+					if($arrayMaquinas[$i][1]==$nombreMaquina){
+							$idMaquina=$arrayMaquinas[$i][0];
+							break;
+					}
+					
+				}
 				
 				
 				
@@ -194,7 +201,7 @@
 					$base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$base->exec("SET CHARACTER SET utf8");
 					
-					$sql="UPDATE MAQUINAS SET idComercio = :y WHERE (idMaquina='4344')";
+					$sql="UPDATE MAQUINAS SET idComercio = :y WHERE (idMaquina='".$idMaquina."')";
 					
 					$resultado=$base->prepare($sql);
 					//$resultado->execute(array)
