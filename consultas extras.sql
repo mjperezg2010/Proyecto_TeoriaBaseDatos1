@@ -31,4 +31,10 @@ UPDATE `maquinasrecreativas`.`comercio` SET `Nombre` = 'ElKairos' WHERE (`idcome
 INSERT INTO `maquinasrecreativas`.`maquinas` (`idMaquina`, `nombreMaquina`, `EstaOperativa`, `Ganancia`, `idTecnico`, `idPiezaReciclada`) VALUES ('4344', 'MortalKombat', 'Si', '3434343', '3443', '34433');
 INSERT INTO `maquinasrecreativas`.`maquinas` (`idMaquina`, `nombreMaquina`, `EstaOperativa`, `Ganancia`, `idTecnico`, `idPiezaReciclada`) VALUES ('34343', 'StreetFighter', 'No', '34343421', '3321', '77654');
 
+--Agregacion del atributo nombre de proveedor
+ALTER TABLE `maquinasrecreativas`.`proveedor` 
+ADD COLUMN `NombreProveedor` VARCHAR(45) NULL AFTER `idProveedor`;
 
+--Agregacion del atributo nombre de tecnico
+ALTER TABLE `maquinasrecreativas`.`tecnico` 
+ADD COLUMN `NombreTecnico` VARCHAR(45) NULL AFTER `idTecnico`;
