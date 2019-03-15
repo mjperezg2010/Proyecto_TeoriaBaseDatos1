@@ -77,6 +77,7 @@
 	
   ?>
   
+  
   <!-- Titulo principal -->
   <h1 class="display-3">Distribucion de maquinas</h1>
   	<br>
@@ -88,7 +89,7 @@
                            hicimos para mostrar el ejemplo de un ejemplo xd xdx dddd
                         </p>
                         
-                        <form action="maquinas_adistribuir.php" method="post">
+                        <form action="" method="post">
                           <input type="submit" name="0" value=<?php minorista()?>  id="boton1" class="list-group-item list-group-item-action">
                          <input type="submit" name="1" value=<?php minorista()?>  id="boton2" class="list-group-item list-group-item-action">
                          <input type="submit" name="2" value=<?php minorista()?>  id="boton3" class="list-group-item list-group-item-action">
@@ -102,7 +103,7 @@
                            hicimos para mostrar el ejemplo de un ejemplo xd xdx dddd
                         </p>
                         
-                        <form action="maquinas_adistribuir.php" method="post">
+                        <form action="" method="post">
                           <input type="submit" name="3" value=<?php mayorista()?>  id="boton4" class="list-group-item list-group-item-action">
                           <input type="submit" name="4" value=<?php mayorista()?>  id="boton5" class="list-group-item list-group-item-action">
                           <input type="submit" name="5" value=<?php mayorista()?>  id="boton6" class="list-group-item list-group-item-action">
@@ -113,6 +114,10 @@
                 </section>
             </div>
             
+            <br><br>
+            <form action="maquinas_adistribuir.php" method="post">
+          	<input type="submit" name="3" value="Asignar Maquinas" id="boto4" class="btn btn-primary">
+            </form>
    
     
  
@@ -159,6 +164,155 @@
 			$resultados=mysqli_query($conexion,$query);
 			
 		}//UPDATE `maquinasrecreativas`.`maquinas` SET `idPiezaReciclada` = '67' WHERE (`idMaquina` = '45');
+	
+	?>
+    
+    <?php
+		
+		if(isset($_POST["0"])){
+			global $idComercio;
+			$idComercio=$_POST["0"];
+			
+			//Sacar Valor de id
+			global $arrayComercios;
+			$contComercios=0;
+			while($contComercios<=count($arrayComercios)-1){
+				if($arrayComercios[$contComercios][3]==$idComercio){
+					
+							
+					//Variable Global
+					
+					session_start();
+					ob_start();
+					$_SESSION['idComercio'] = $arrayComercios[$contComercios][0];
+					break;
+							
+					
+					 
+				}
+				$contComercios++;	
+			}	
+			
+			
+		}
+		
+		if(isset($_POST["1"])){
+			global $idComercio;
+			$idComercio=$_POST["1"];
+		
+			//Sacar Valor de id
+			global $arrayComercios;
+			$contComercios=0;
+			while($contComercios<=count($arrayComercios)-1){
+				if($arrayComercios[$contComercios][3]==$idComercio){
+					
+							
+					//Variable Global
+					
+					session_start();
+					ob_start();
+					$_SESSION['idComercio'] = $arrayComercios[$contComercios][0];
+					break;
+				}
+				$contComercios++;	
+			}	
+		} //Fin del post1
+		
+		
+		
+		if(isset($_POST["2"])){
+			global $idComercio;
+			$idComercio=$_POST["2"];
+			
+			//Sacar Valor de id
+			global $arrayComercios;
+			$contComercios=0;
+			while($contComercios<=count($arrayComercios)-1){
+				if($arrayComercios[$contComercios][3]==$idComercio){
+					
+							
+					//Variable Global
+					
+					session_start();
+					ob_start();
+					$_SESSION['idComercio'] = $arrayComercios[$contComercios][0];
+					break;
+				}
+				$contComercios++;	
+			}	
+			
+		}//Fin del post2
+		
+		if(isset($_POST["3"])){
+			global $idComercio;
+			$idComercio=$_POST["3"];
+			
+			
+			//Sacar Valor de id
+			global $arrayComercios;
+			$contComercios=0;
+			while($contComercios<=count($arrayComercios)-1){
+				if($arrayComercios[$contComercios][3]==$idComercio){
+					
+							
+					//Variable Global
+					
+					session_start();
+					ob_start();
+					$_SESSION['idComercio'] = $arrayComercios[$contComercios][0];
+					break;
+				}
+				$contComercios++;	
+			}	
+		}//Fin de post3
+		
+		
+		
+		if(isset($_POST["4"])){
+			//Sacar Valor de id
+			global $arrayComercios;
+			$contComercios=0;
+			while($contComercios<=count($arrayComercios)-1){
+				if($arrayComercios[$contComercios][3]==$idComercio){
+					
+							
+					//Variable Global
+					
+					session_start();
+					ob_start();
+					$_SESSION['idComercio'] = $arrayComercios[$contComercios][0];
+					break;
+				}
+				$contComercios++;	
+			}	
+			
+			
+		}//FIn del post4
+		
+		if(isset($_POST["5"])){
+			global $idComercio;
+			$idComercio=$_POST["5"];
+			
+			//Sacar Valor de id
+			global $arrayComercios;
+			$contComercios=0;
+			while($contComercios<=count($arrayComercios)-1){
+				if($arrayComercios[$contComercios][3]==$idComercio){
+					
+							
+					//Variable Global
+					
+					session_start();
+					ob_start();
+					$_SESSION['idComercio'] = $arrayComercios[$contComercios][0];
+					break;
+				}
+				$contComercios++;	
+			}	
+			
+		}//Fin del post 5
+	
+	
 	
 	?>
     

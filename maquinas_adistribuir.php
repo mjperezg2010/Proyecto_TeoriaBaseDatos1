@@ -14,12 +14,8 @@
 
 <body>
 
-	<!-- Variable global-->
-	<?php
-		//$idComercio="";
 	
 	
-	?>
     
     <!-- Invocar base de datos comercio-->
     <?php
@@ -77,53 +73,8 @@
   
 	<!-- Recibir comercio-->
    <!-- Funcion para el boton  -->
-    <?php
 	
-		if(isset($_POST["0"])){
-			global $idComercio;
-			$idComercio=$_POST["0"];
-			echo $idComercio;
-			
-			
-		}
-		
-		if(isset($_POST["1"])){
-			global $idComercio;
-			$idComercio=$_POST["1"];
-			echo $idComercio;
-			
-		}
-		
-		if(isset($_POST["2"])){
-			global $idComercio;
-			$idComercio=$_POST["2"];
-			echo $idComercio;
-			
-		}
-		
-		if(isset($_POST["3"])){
-			global $idComercio;
-			$idComercio=$_POST["3"];
-			echo $idComercio;
-			
-		}
-		
-		if(isset($_POST["4"])){
-			global $idComercio;
-			$idComercio=$_POST["4"];
-			echo $idComercio;
-			
-		}
-		
-		if(isset($_POST["5"])){
-			global $idComercio;
-			$idComercio=$_POST["5"];
-			echo $idComercio;
-			
-		}
-
-	?>
-
+   
 
 
 
@@ -147,19 +98,23 @@
                     	<?php
 							global $arrayMaquinas;
 							$cont=0;
+							$num=0;
 							while($cont<=count($arrayMaquinas)-1){
 								echo "<tr>";
 								$cont1=0;
 								while($cont1<=5){
 									
 									
-									echo "<td><input type=submit name=".$cont."-".$cont1." value=".$arrayMaquinas[$cont][$cont1]."
+									echo "<td><input type=submit name=".$num." value=".$arrayMaquinas[$cont][$cont1]."
 											 class='list-group-item list-group-item-action'></td>";
+											 
 									
 									$cont1++;
+									$num++;
 									
 								}
 								$cont++;
+								$num++;
 								echo "</tr>";
 							}
 		
@@ -169,7 +124,9 @@
                  </form>
             </div>
             
-            
+
+ 
+    
             
 
 
@@ -179,9 +136,11 @@
 			function obtenerIdComercio(){
 				global $arrayComercios;
 				global $idComercio;
+				global $id;
 				$contComercios=0;
 				while($contComercios<=count($arrayComercios)-1){
 					if($arrayComercios[$contComercios][3]==$idComercio){
+						
 						return $arrayComercios[$contComercios][0];
 					}
 					$contComercios++;	
@@ -191,21 +150,72 @@
         
         <!-- Funcion para botones de las maquinas -->
         <?php
-			//if(isset(_$POST["0-1"])){
+		
+			for($i=0;$i<count($arrayMaquinas);$i++){
+				if(isset($_POST[strval($i)])){
+					//global $idComercio;
+					session_start();
+					ob_start();
+					echo $_SESSION['idComercio'];
+					updateMaquina();
 				
-				
-			//}
-		
-		
-		
+				}
+			}
+			
+			
+			
 		?>
+        
+       
+        
+        
+        
         
         <!-- Funcion para hacer el update de la maquina -->
         <?php
-		
-		
-		
-		
+			
+			
+			function updateMaquina(){
+				
+				//Obtener la funcion
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				try{
+					//UPDATE `maquinasrecreativas`.`maquinas` SET `idComercio` = 'PERRO' WHERE (`idMaquina` = '4344');
+					//INSERT INTO `maquinasrecreativas`.`maquinas` (`idMaquina`) VALUES ('E');
+					$base=new PDO('mysql:host=localhost; dbname=maquinasrecreativas','root','');
+					$base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+					$base->exec("SET CHARACTER SET utf8");
+					
+					$sql="UPDATE MAQUINAS SET idComercio = :y WHERE (idMaquina='4344')";
+					
+					$resultado=$base->prepare($sql);
+					//$resultado->execute(array)
+					$resultado->execute(array(":y"=>$_SESSION['idComercio']));
+					
+					
+					echo "Registro insertado - ".$_SESSION['idComercio'];
+					
+					
+					echo 'Conexion OK';
+					
+					
+				}catch(Exception $e){
+					
+					die('Error: '.$e->GetMessage());
+					
+				}
+				
+				
+			}
+	
 		?>
         
 
