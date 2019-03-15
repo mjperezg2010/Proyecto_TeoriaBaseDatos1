@@ -38,3 +38,27 @@ ADD COLUMN `NombreProveedor` VARCHAR(45) NULL AFTER `idProveedor`;
 -- Agregacion del atributo nombre de tecnico
 ALTER TABLE `maquinasrecreativas`.`tecnico` 
 ADD COLUMN `NombreTecnico` VARCHAR(45) NULL AFTER `idTecnico`;
+
+
+
+
+
+
+
+-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+-- Tablas creadas hoy 
+Create Table `maquinasRecreativas`.`tabla_ComprobacionMaquina` (
+
+`idMaquina` INT NOT NULL ,
+`EstaOperativa` NVARCHAR(30) NULL,
+`Ganancia` INT NULL, 
+`idTecnico` INT NULL,
+`idPiezaReciclada` INT NULL,
+`idComercio` INT NULL,
+PRIMARY KEY(`idMaquina`)
+
+);
+
+ALTER TABLE `maquinasrecreativas`.`tabla_comprobacionmaquina` 
+ADD COLUMN `nombreMaquina` VARCHAR(45) NULL AFTER `idMaquina`;

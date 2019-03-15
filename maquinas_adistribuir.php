@@ -103,10 +103,12 @@
 								echo "<tr>";
 								$cont1=0;
 								while($cont1<=5){
-									
-									
-									echo "<td><input type=submit name=".$num." value=".$arrayMaquinas[$cont][$cont1]."
-											 class='list-group-item list-group-item-action'></td>";
+									if($arrayMaquinas[$cont][2]=="Si"){
+										
+										echo "<td><input type=submit name=".$num." value=".$arrayMaquinas[$cont][$cont1]."
+												 class='list-group-item list-group-item-action'></td>";
+										
+									}
 											 
 									
 									$cont1++;

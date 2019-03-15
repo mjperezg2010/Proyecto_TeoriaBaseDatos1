@@ -82,7 +82,7 @@
   <h1 class="display-3">Distribucion de maquinas</h1>
   	<br>
         	<div class="container">
-            	<section class="main row"">
+            	<section class="main row">
                     <div class="col-md-6">
                         <h2>Comercios minoristas</h2>
                         <p>Este es un diseño el cual es un ejemplo del ejemplo de aquel ejemplo queera pra un ejemplo de ccual 
