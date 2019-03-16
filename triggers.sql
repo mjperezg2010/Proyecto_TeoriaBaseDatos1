@@ -1,4 +1,4 @@
-USE maquinasrecreativas;
+/*USE maquinasrecreativas;
 
 DELIMITER $$
 CREATE TRIGGER trigger_comprobacionmaquina AFTER INSERT ON maquinas
@@ -13,8 +13,25 @@ BEGIN
 
 
 END 
-$$
+$$*/
 
 
 -- DROP TRIGGER IF EXISTS trigger_comprobacionmaquina;
+
+USE maquinasrecreativas;
+
+DELIMITER $$
+CREATE TRIGGER trigger_reparacionmaquina AFTER UPDATE ON maquinas
+FOR EACH ROW
+BEGIN
+	IF new.EstaOperativa = "No" THEN BEGIN
+		INSERT INTO tabla_reparacionmaquina(idMaquina,nombreMaquina,EstaOperativa,Ganancia,IdTecnico,
+					idPiezaReciclada,idComercio) VALUES(old.idMaquina,old.nombreMaquina,new.EstaOperativa,old.Ganancia,
+                    old.idTecnico,old.idPiezaReciclada,old.idComercio);
+		
+		END; END IF;
+
+
+END 
+$$
 

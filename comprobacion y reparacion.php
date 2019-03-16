@@ -38,6 +38,59 @@
 		}
 	
 	?>
+    
+    <!-- Cargar Maquinas defectuosas -->
+	<?php
+		$db_host="localhost";
+		$db_nombre="maquinasrecreativas";	
+		$db_usuario="root";
+		$db_contra="";
+		
+		$conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
+		mysqli_set_charset($conexion,"utf8");
+		$query="SELECT * FROM tabla_reparacionmaquina";
+		$resultados=mysqli_query($conexion,$query);
+		
+		$arrayMaquinasDefectuosas=array();
+		$contMalas=0;
+		while(($fila=mysqli_fetch_row($resultados))){
+			$cont=0;
+			while($cont<=6){
+				$arrayMaquinasDefectuosas[$contMalas][$cont]=$fila[$cont];
+				$cont++;
+			}
+			$contMalas++;
+		}
+	
+	?>
+    
+    <!-- Cargar tecnicos -->
+    <?php
+  	$db_host="localhost";
+	$db_nombre="maquinasrecreativas";	
+	$db_usuario="root";
+	$db_contra="";
+	
+	$conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
+	mysqli_set_charset($conexion,"utf8");
+	$query="SELECT * FROM tecnico";
+	$resultados=mysqli_query($conexion,$query);
+	
+	$contTecnicos=0;
+	$arrayTecnicos=array();
+	while(($fila=mysqli_fetch_row($resultados))){
+		$cont=0;
+		while($cont<3){
+			$arrayTecnicos[$contTecnicos][$cont]=$fila[$cont];
+			$cont++;
+			
+		}
+		$contTecnicos++;
+		
+	}
+
+  
+  ?>
 
 	<h1 style="text-align:center"> Comprobacion y Reparacion de Maquinas</h1>
     <form action="" method="post">
@@ -85,6 +138,47 @@
     </section>
     
     
+    <!-- Maquinas Defectuosas -->
+    <br><br>
+    
+    <h2 style="text-align:center">Maquinas Defectuosas Reportadas por Comercio</h2>
+    
+    <br><br>
+    <section class="main row">
+        <div class="col-md-8">
+        
+        	
+            	<table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>NombreMaquina</th>
+                    </tr>
+                	
+        	<?php
+				for($i=0;$i<count($arrayMaquinasDefectuosas);$i++){
+					echo "<tr>";
+					echo "<td>".$arrayMaquinasDefectuosas[$i][0]."</td>";
+					echo "<td>".$arrayMaquinasDefectuosas[$i][1]."</td>";
+					echo "</tr>";
+	
+				}
+			
+			?>
+            		
+            	</table>          
+        </div>
+        
+        <div class="col-md-4">
+        	<form action="" method="post">
+            <input type=submit name="botonUpdateComercio" value="Mandar a Reparar Maquinas" class="btn btn-info">
+            </form>
+           
+            
+            
+        </div>
+    
+    </section>
+    
   
 
 
@@ -92,6 +186,14 @@
 		if(isset($_POST['botonUpdate'])){
 			
 			actualizar();
+		}
+	
+	?>
+    
+    <?php
+		if(isset($_POST['botonUpdateComercio'])){
+			
+			actualizarComercio();
 		}
 	
 	?>
@@ -136,8 +238,86 @@
 		
 		
 		}
+		
+		
+		function actualizarComercio(){
+			global $arrayMaquinasDefectuosas;
+			
+			
+			try{
+					//UPDATE `maquinasrecreativas`.`maquinas` SET `idComercio` = 'PERRO' WHERE (`idMaquina` = '4344');
+					//INSERT INTO `maquinasrecreativas`.`maquinas` (`idMaquina`) VALUES ('E');
+					$base=new PDO('mysql:host=localhost; dbname=maquinasrecreativas','root','');
+					$base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+					$base->exec("SET CHARACTER SET utf8");
+					
+					
+					
+					
+					for($i=0;$i<count($arrayMaquinasDefectuosas);$i++){
+						$sql="UPDATE MAQUINAS SET EstaOperativa = :temp WHERE (idMaquina='".$arrayMaquinasDefectuosas[$i][0]."')";
+						$resultado=$base->prepare($sql);
+						$resultado->execute(array(":temp"=>"Si"));
+						
+						$sql="DELETE FROM TABLA_REPARACIONMAQUINA WHERE idMaquina=:temp";
+						$resultado=$base->prepare($sql);
+						$resultado->execute(array(":temp"=>$arrayMaquinasDefectuosas[$i][0]));
+						
+						$sql="UPDATE MAQUINAS SET idTecnico = :temp2 WHERE (idMaquina='".$arrayMaquinasDefectuosas[$i][0]."')";
+						$resultado=$base->prepare($sql);
+						$resultado->execute(array(":temp2"=>idtecnico()));
+						
+						
+						
+						
+						echo "Registro insertado";
+						
+						
+						echo 'Conexion OK';
+					}
+					
+					
+				}catch(Exception $e){
+					
+					die('Error: '.$e->GetMessage());
+					
+				}
+				
+		
+		
+		}
+		
+		
 	
 	?>
+    <!-- Funcion para tecnios menor -->
+    <?php
+		function idtecnico(){
+			global $arrayTecnicos;
+			$numReparaciones=array();
+			for($i=0;$i<count($arrayTecnicos);$i++){
+				$numReparaciones[$i]=$arrayTecnicos[$i][2];					
+				
+				
+			}
+			
+			for($i=0;$i<count($arrayTecnicos);$i++){
+				if($arrayTecnicos[$i][2]==min($numReparaciones)){
+					return ((string)$arrayTecnicos[$i][0]);
+				}
+				
+			}
+
+			
+		}
+	
+	?>
+    
+    <form action="maquinas_adistribuir.php" method="post">
+     <input type="submit" name="3" value="Asignar Maquinas" id="boto4" class="btn btn-primary">
+            </form>
+    
+    
 
 
 

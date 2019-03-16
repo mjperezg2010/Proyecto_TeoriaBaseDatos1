@@ -47,7 +47,7 @@ ADD COLUMN `NombreTecnico` VARCHAR(45) NULL AFTER `idTecnico`;
 
 -- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
--- Tablas creadas hoy 
+-- Tablas creadas hoy 15 marzo
 Create Table `maquinasRecreativas`.`tabla_ComprobacionMaquina` (
 
 `idMaquina` INT NOT NULL ,
@@ -62,3 +62,18 @@ PRIMARY KEY(`idMaquina`)
 
 ALTER TABLE `maquinasrecreativas`.`tabla_comprobacionmaquina` 
 ADD COLUMN `nombreMaquina` VARCHAR(45) NULL AFTER `idMaquina`;
+
+
+-- ///////// hoy 16
+Create Table `maquinasRecreativas`.`tabla_reparacionmaquina` (
+
+`idMaquina` INT NOT NULL ,
+`nombreMaquina` VARCHAR(89) NULL,
+`EstaOperativa` NVARCHAR(30) NULL,
+`Ganancia` INT NULL, 
+`idTecnico` INT NULL,
+`idPiezaReciclada` INT NULL,
+`idComercio` INT NULL,
+PRIMARY KEY(`idMaquina`)
+
+);

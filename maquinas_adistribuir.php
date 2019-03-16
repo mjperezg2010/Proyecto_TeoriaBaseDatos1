@@ -15,7 +15,10 @@
 <body>
 
 	
-	
+	<?php
+		session_start();
+		ob_start();
+	?>
     
     <!-- Invocar base de datos comercio-->
     <?php
@@ -156,8 +159,7 @@
 			for($i=0;$i<$num;$i++){
 				if(isset($_POST[strval($i)])){
 					//global $idComercio;
-					session_start();
-					ob_start();
+					
 					echo $_SESSION['idComercio'];
 					updateMaquina($_POST[strval($i)]);
 				
@@ -212,6 +214,19 @@
 					
 					echo "Registro insertado - ".$_SESSION['idComercio'];
 					
+					//Maquina se le genera un defecto
+					$ran=randomId();
+					if($ran==false){
+						echo "No se hizo nada";
+						
+					}else{
+						$sql="UPDATE MAQUINAS SET EstaOperativa = :y WHERE (idMaquina='".$ran."')";
+						$resultado=$base->prepare($sql);
+						//$resultado->execute(array)
+						$resultado->execute(array(":y"=>"No"));
+						echo "Se le asigno un no" ;
+					}
+					
 					
 					echo 'Conexion OK';
 					
@@ -225,6 +240,25 @@
 				
 			}
 	
+		?>
+        
+        <!-- Generar numero aleatorio -->
+        <?php
+		function randomId(){
+			global $arrayMaquinas;
+			$d1=rand(0,count($arrayMaquinas)-1);
+			$d=rand(1,10);
+			echo $d."----".$d1;
+				if($d==2 or $d==5 or $d==8 or $d==3){
+					return $arrayMaquinas[$d1][0];
+					
+				}else{
+					return false;	
+				}
+				
+					
+		}
+		  
 		?>
         
 
