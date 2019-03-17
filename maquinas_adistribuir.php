@@ -129,7 +129,9 @@
                  </form>
             </div>
             
-
+			<form action="comercio_eleccion.php" method="post">
+            <input type=submit name="botonvolver" value="Regresar" class="btn btn-primary">
+            </form>
  
     
             

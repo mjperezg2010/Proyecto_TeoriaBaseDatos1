@@ -269,6 +269,8 @@
 		
 		
 		if(isset($_POST["4"])){
+			global $idComercio;
+			$idComercio=$_POST["4"];
 			//Sacar Valor de id
 			global $arrayComercios;
 			$contComercios=0;

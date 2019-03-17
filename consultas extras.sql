@@ -77,3 +77,13 @@ Create Table `maquinasRecreativas`.`tabla_reparacionmaquina` (
 PRIMARY KEY(`idMaquina`)
 
 );
+
+ALTER TABLE `maquinasrecreativas`.`maquinas` 
+CHANGE COLUMN `idPiezaReciclada` `idSuministro` INT(11) NULL DEFAULT NULL ;
+
+ALTER TABLE `maquinasrecreativas`.`tabla_comprobacionmaquina` 
+CHANGE COLUMN `idPiezaReciclada` `idSuministro` INT(11) NULL DEFAULT NULL ;
+
+ALTER TABLE `maquinasrecreativas`.`tabla_reparacionmaquina` 
+CHANGE COLUMN `idPiezaReciclada` `idSuministro` INT(11) NULL DEFAULT NULL ;
+
