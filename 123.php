@@ -1,7 +1,5 @@
 
 
-<?php	
-	
-	echo apcu_fetch('gg');
-		
+<?php		
+	echo apcu_fetch('gg');		
 ?>

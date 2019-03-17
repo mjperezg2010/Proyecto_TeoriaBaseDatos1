@@ -68,18 +68,9 @@
   </p>	
 	
 	<?php	
-
 				
-		/*
-			<!-->
-	
-			<!-->
-		*/
-		
 		//apcu_clear_cache ();
 		
-		//apc_add('foo', $bar);
-		//var_dump(apc_fetch('foo'));
 	?>
 	
   <h1 class="display-3"></h1>
@@ -92,8 +83,7 @@
                         </p>
                                                 
 						<?php
-							for ($i = 0; $i <count($arrayProveedores); $i++) {																		
-								//echo "<input type=submit name=".$i." value=".$arrayProveedores[$i][1]." id=boton".$i."class=list-group-item list-group-item-action>";
+							for ($i = 0; $i <count($arrayProveedores); $i++) {																										
 								echo "<form method=post>";
 								echo "<input type=submit name=".$i." value=".$arrayProveedores[$i][1]." class=list-group-item list-group-item-action>";
 								echo "</form>";
@@ -108,7 +98,8 @@
 							<?php								
 								$flag = true;
 								for ($i = 0; $i < count($arrayProveedores); $i++) {						
-									if(isset($_POST[(string)$i])){																					
+									if(isset($_POST[(string)$i])){	
+										echo $_POST[(string)$i];
 										apcu_store('proveedorActual', $_POST[(string)$i]);																																														
 										apcu_store('idProveedorActual', $arrayProveedores[$i][0]);
 										$flag = false;
@@ -117,6 +108,8 @@
 								}	
 								if (apcu_exists('proveedorActual') and $flag)
 									echo apcu_fetch('proveedorActual');
+									
+								
 								
 							?> 
 						</h2>
@@ -242,18 +235,25 @@
 					echo 	'<div class="alert alert-success" role="alert">'.
 					"Maquina ".$_POST["nameAA"]." creada con exito."
 					.'</div>';					
-					apcu_store('nombeMaquina', $_POST["nameAA"]);															
-					echo "id Maquina: ggg";
-					echo "Nombre Maquina: ".apcu_fetch('nombeMaquina');
-					echo "Operativa: si";					
-					echo "FGanacia: 5432";
-					echo "idTecnico: ".apcu_fetch('idTtecnicoActual');
-					echo "idSuministro: ".apcu_fetch('idSuministroActual');
-					echo "idComercio: NULL";
-					//$sql = "CALL procedimientoAlmacenado();"
-				}	
-				//if($_POST["nombreMaquinaText"])
-					//echo $_POST["nombreMaquinaText"];				
+					apcu_store('nombeMaquina', $_POST["nameAA"]);																				
+					$mala = rand(0,10);
+					if($mala = 2 or $mala = 5 or $mala = 8)
+						$operativa = "No";
+					else
+						$operativa = "Si";
+										
+					$p1 = rand(1000,9999);					
+					$p2 = '"'.apcu_fetch('nombeMaquina').'"';					
+					$p3 = '"'.$operativa.'"';
+					$p4 = rand(10000,30000);
+					$p5 = (int)apcu_fetch('idTtecnicoActual');
+					$p6 = (int)apcu_fetch('idSuministroActual');
+					$p7 = "null";
+					
+					$query = "CALL insertarMaquina($p1,$p2,$p3,$p4,$p5,$p6,$p7);";					
+					echo mysqli_query($conexion,$query);	
+					
+				}					
 			?>
 			
                    
@@ -268,3 +268,4 @@
     
   </body>
 </html>
+

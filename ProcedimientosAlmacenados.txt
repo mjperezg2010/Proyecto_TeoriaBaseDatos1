@@ -1,0 +1,9 @@
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE insertarMaquina (p1 INT,p2 varchar(45),p3 varchar(30),p4 INT,p5 INT,p6 INT,p7 INT)
+    BEGIN
+    	INSERT INTO `maquinas` (`idMaquina`, `nombreMaquina`, `EstaOperativa`, `Ganancia`, `idTecnico`, `idSuministro`, `idComercio`) VALUES (p1,p2,p3,p4,p5,p6,p7);
+    END//
+delimiter ;
