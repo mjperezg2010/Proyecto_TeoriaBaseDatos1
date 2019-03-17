@@ -179,6 +179,11 @@
     
     </section>
     
+     <br>
+    <form action="index.php" method="post">
+    <input type="submit" name="retorno" value="Retornar" id="botog" class="btn btn-primary">
+     </form>
+    
   
 
 
@@ -242,6 +247,7 @@
 		
 		function actualizarComercio(){
 			global $arrayMaquinasDefectuosas;
+			global $arrayTecnicos;
 			
 			
 			try{
@@ -259,6 +265,8 @@
 						$resultado=$base->prepare($sql);
 						$resultado->execute(array(":temp"=>"Si"));
 						
+						
+						
 						$sql="DELETE FROM TABLA_REPARACIONMAQUINA WHERE idMaquina=:temp";
 						$resultado=$base->prepare($sql);
 						$resultado->execute(array(":temp"=>$arrayMaquinasDefectuosas[$i][0]));
@@ -267,9 +275,24 @@
 						$resultado=$base->prepare($sql);
 						$resultado->execute(array(":temp2"=>idtecnico()));
 						
+						$numtemp=0;
+						for($i=0;$i<count($arrayTecnicos);$i++){
+							if($arrayTecnicos[$i][0]==idtecnico()){
+								echo "Jodease";
+								$numtemp=$arrayTecnicos[$i][2];
+								break;
+							}
+							
+						}
+						
+						
+						$sql="UPDATE TECNICO SET ReparacionesRealizadas= :temp3 WHERE (idTecnico='".idtecnico()."')";
+						$resultado=$base->prepare($sql);
+						$resultado->execute(array(":temp3"=>$numtemp+1));
 						
 						
 						
+
 						echo "Registro insertado";
 						
 						
@@ -313,9 +336,7 @@
 	
 	?>
     
-    <form action="maquinas_adistribuir.php" method="post">
-     <input type="submit" name="3" value="Asignar Maquinas" id="boto4" class="btn btn-primary">
-            </form>
+   
     
     
 
