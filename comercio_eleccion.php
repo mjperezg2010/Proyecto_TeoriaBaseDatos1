@@ -85,9 +85,7 @@
             	<section class="main row">
                     <div class="col-md-6">
                         <h2>Comercios minoristas</h2>
-                        <p>Este es un diseño el cual es un ejemplo del ejemplo de aquel ejemplo queera pra un ejemplo de ccual 
-                           hicimos para mostrar el ejemplo de un ejemplo xd xdx dddd
-                        </p>
+                       
                         
                         <form action="" method="post">
                           <input type="submit" name="0" value=<?php minorista()?>  id="boton1" class="list-group-item list-group-item-action">
@@ -99,9 +97,7 @@
                     
                     <div class="col-md-6">
                         <h2>Comercios mayoristas</h2>
-                        <p>Este es un diseño el cual es un ejemplo del ejemplo de aquel ejemplo queera pra un ejemplo de ccual 
-                           hicimos para mostrar el ejemplo de un ejemplo xd xdx dddd
-                        </p>
+                       
                         
                         <form action="" method="post">
                           <input type="submit" name="3" value=<?php mayorista()?>  id="boton4" class="list-group-item list-group-item-action">

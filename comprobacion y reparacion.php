@@ -265,6 +265,8 @@
 						$resultado=$base->prepare($sql);
 						$resultado->execute(array(":temp"=>"Si"));
 						
+						
+						
 						$sql="DELETE FROM TABLA_REPARACIONMAQUINA WHERE idMaquina=:temp";
 						$resultado=$base->prepare($sql);
 						$resultado->execute(array(":temp"=>$arrayMaquinasDefectuosas[$i][0]));
@@ -276,6 +278,7 @@
 						$numtemp=0;
 						for($i=0;$i<count($arrayTecnicos);$i++){
 							if($arrayTecnicos[$i][0]==idtecnico()){
+								echo "Jodease";
 								$numtemp=$arrayTecnicos[$i][2];
 								break;
 							}

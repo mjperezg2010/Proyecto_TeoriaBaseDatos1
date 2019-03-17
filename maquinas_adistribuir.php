@@ -96,7 +96,7 @@
                             <th>EstaOperativa</th>
                             <th>Ganancia</th>
                             <th>IDTecnico</th>
-                            <th>IDPiezaReciclada</th>
+                            <th>IDSuministro</th>
                         </tr>
                     	<?php
 							global $arrayMaquinas;
