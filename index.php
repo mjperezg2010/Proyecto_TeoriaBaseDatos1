@@ -77,7 +77,7 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <form action="comercio_eleccion.php" method="post">
+                <form action="Ensamblaje.php" method="post">
                      	<input name="je" type="image" src="AA.jpg">
                      </form>
                 <div class="carousel-caption d-none d-md-block">
@@ -118,15 +118,15 @@
             
    </section>
         
-        <div class="alert alert-primary" role="alert">
-          A simple primary alert—check it out!
-        </div>
         
-        <div class="alert alert-success" role="alert">
-          A simple success alert—check it out!
-        </div>
+        br> <br>
+    	
+        <h1 style="color:#FFF" align="center" class="card-header">Administrar </h1>
+        
 
-
+        
+       
+        
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 			crossorigin="anonymous"></script>

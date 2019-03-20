@@ -87,3 +87,19 @@ CHANGE COLUMN `idPiezaReciclada` `idSuministro` INT(11) NULL DEFAULT NULL ;
 ALTER TABLE `maquinasrecreativas`.`tabla_reparacionmaquina` 
 CHANGE COLUMN `idPiezaReciclada` `idSuministro` INT(11) NULL DEFAULT NULL ;
 
+-- Consultas extra marzo 19
+ALTER TABLE `maquinasrecreativas`.`suministro` 
+DROP COLUMN `idMaquina`;
+
+ALTER TABLE `maquinasrecreativas`.`comercio` 
+DROP COLUMN `NumMaquinas`;
+
+DROP TABLE cantidadpagada_mes;
+DROP TABLE datoscomercio;
+DROP TABLE genera;
+DROP TABLE informe;
+DROP TABLE porcentajeextra;
+DROP TABLE recaudacionesmensuales;
+DROP TABLE ubicaciones; 
+
+

@@ -13,6 +13,16 @@
 </head>
 
 <body>
+		<!--
+		<div class="alert alert-primary" role="alert">
+          A simple primary alert—check it out!
+        </div>
+        
+        <div class="alert alert-success" role="alert">
+          A simple success alert—check it out!
+        </div>
+		-->
+
 
 	
 	<?php
@@ -162,7 +172,7 @@
 				if(isset($_POST[strval($i)])){
 					//global $idComercio;
 					
-					echo $_SESSION['idComercio'];
+					
 					updateMaquina($_POST[strval($i)]);
 				
 				}
@@ -214,7 +224,9 @@
 					$resultado->execute(array(":y"=>$_SESSION['idComercio']));
 					
 					
-					echo "Registro insertado - ".$_SESSION['idComercio'];
+					echo '<div class="alert alert-success" role="alert">
+							  Se le ha asignado el comercio a la maquina con id = '.$idMaquina.'
+						  </div>';
 					
 					//Maquina se le genera un defecto
 					$ran=randomId();
@@ -226,11 +238,14 @@
 						$resultado=$base->prepare($sql);
 						//$resultado->execute(array)
 						$resultado->execute(array(":y"=>"No"));
-						echo "Se le asigno un no" ;
+						
+						echo '<div class="alert alert-primary" role="alert">
+         					 La maquina con Id de '.$ran.'
+        					</div>';
 					}
 					
 					
-					echo 'Conexion OK';
+					
 					
 					
 				}catch(Exception $e){
@@ -250,7 +265,7 @@
 			global $arrayMaquinas;
 			$d1=rand(0,count($arrayMaquinas)-1);
 			$d=rand(1,10);
-			echo $d."----".$d1;
+			
 				if($d==2 or $d==5 or $d==8 or $d==3){
 					return $arrayMaquinas[$d1][0];
 					
