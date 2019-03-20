@@ -35,3 +35,115 @@ CREATE PROCEDURE crearInformes ()
 
     END//
 delimiter ;
+
+
+--modificar maquinas
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE modificarMaquina (p1 INT,p2 varchar(45),p3 varchar(30),p4 INT,p5 INT,p6 INT)
+    BEGIN
+    	UPDATE maquinas
+    	SET `idMaquina`=p1, `nombreMaquina`=p2, `EstaOperativa`=p3, `Ganancia`=p4, `idTecnico`=p5, `idSuministro`=p6
+        WHERE idMaquina = p1;
+    END//
+delimiter ;
+
+--eliminar maquinas
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE eliminarMaquina (p1 INT)
+    BEGIN
+    	DELETE FROM maquinas
+        WHERE idMaquina = p1;
+    END//
+delimiter ;
+
+--modificar tecnico
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE modificarTecnico (p1 INT,p2 varchar(45),p3 INT)
+    BEGIN
+    	UPDATE tecnico
+    	SET `idTecnico`=p1, `NombreTecnico`=p2, `ReparacionesRealizadas`=p3
+        WHERE idTecnico = p1;
+    END//
+delimiter ;
+
+--eliminar tecnico
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE eliminarTecnico (p1 INT)
+    BEGIN
+    	DELETE FROM tecnico
+        WHERE idTecnico = p1;
+    END//
+delimiter ;
+
+--modificar comercio
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE modificarComercio (p1 INT,p2 INT,p3 INT,p4 varchar(45),p5 INT,p6 varchar(30))
+    BEGIN
+    	UPDATE maquinas
+    	SET `idcomercio`=p1, `CantidadPagada`=p2, `Recaudacion`=p3, `Nombre`=p4, `PorcentajeExtra`=p5, `tipoComercio`=p6
+        WHERE `idcomercio` = p1;
+    END//
+delimiter ;
+
+--eliminar comercio
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE eliminarComercio (p1 INT)
+    BEGIN
+    	DELETE FROM comercio
+        WHERE idcomercio = p1;
+    END//
+delimiter ;
+
+--eliminar suministro
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE eliminarSuministro (p1 INT)
+    BEGIN
+    	DELETE FROM suministro
+        WHERE idSuministro = p1;
+    END//
+delimiter ;
+
+--eliminar proveedor
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE eliminarProveedor (p1 INT)
+    BEGIN
+    	DELETE FROM proveedor
+        WHERE idProveedor = p1;
+    END//
+delimiter ;
+
+
+--modificar proveedor
+
+delimiter //
+CREATE PROCEDURE modificarProveedor (p1 INT,p2 varchar(45))
+    BEGIN
+    	UPDATE proveedor
+    	SET `idProveedor`=p1, `NombreProveedor`=p2
+        WHERE idProveedor = p1;
+    END//
+delimiter ;

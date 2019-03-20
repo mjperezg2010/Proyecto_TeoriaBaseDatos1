@@ -18,7 +18,7 @@
 		//session_start();
 		//ob_start();
 		//$flag = $_SESSION['indicador'];
-		$flag = 0;
+		$flag = 0 ;
 		$db_host="localhost";
 		$db_nombre="maquinasrecreativas";	
 		$db_usuario="root";
@@ -28,7 +28,7 @@
 		mysqli_set_charset($conexion,"utf8");
 		
 		
-		//CARGAR PROVEEDORES
+		
 		switch($flag){
 			case 0:
 				//MAQUINAS
@@ -43,6 +43,16 @@
 			case 2:
 				//COMERCIOS
 				$query="SELECT * FROM comercio";
+				$resultados=mysqli_query($conexion,$query);	
+				break;
+			case 3:
+				//SUMINISTRO
+				$query="SELECT * FROM suministro";
+				$resultados=mysqli_query($conexion,$query);	
+				break;
+			case 4:
+				//PROVEEDOR
+				$query="SELECT * FROM proveedor";
 				$resultados=mysqli_query($conexion,$query);	
 				break;
 			default:
@@ -65,11 +75,85 @@
   <p>
 	En esta seccion podra modificar maquinas, comercios y tecnicos. Seleccione de la columna izquierda el item a modificar/eliminar.
   </p>	
-	
+	<?php
+	if(isset($_POST["Modificar"])){						
+		switch($flag){
+			case 0:											
+				$p1 = (int)$_POST["a"];
+				$p2 = '"'.$_POST["b"].'"';					
+				$p3 = '"'.$_POST["c"].'"';
+				$p4 = (int)$_POST["d"];
+				$p5 = (int)$_POST["e"];
+				$p6 = (int)$_POST["f"];									
+				$query = "CALL modificarMaquina($p1,$p2,$p3,$p4,$p5,$p6);";					
+								
+				mysqli_query($conexion,$query);	
+				break;								
+																									
+			case 1:
+				$p1 = (int)$_POST["a"];
+				$p2 = '"'.$_POST["b"].'"';					
+				$p3 = (int)$_POST["c"];
+				$query = "CALL modificarTecnico($p1,$p2,$p3);";													
+				mysqli_query($conexion,$query);	
+				break;
+				
+			case 2:
+				$p1 = (int)$_POST["a"];
+				$p2 = (int)$_POST["b"];
+				$p3 = (int)$_POST["c"];
+				$p4 = '"'.$_POST["d"].'"';									
+				$p5 = (int)$_POST["e"];				
+				$p6 = '"'.$_POST["f"].'"';					
+				$query = "CALL modificarComercio($p1,$p2,$p3,$p4,$p5,$p6);";					
+								
+				mysqli_query($conexion,$query);	
+				break;							
+			case 4:
+				$p1 = (int)$_POST["a"];
+				$p2 = '"'.$_POST["b"].'"';									
+				$query = "CALL modificarProveedor($p1,$p2);";					
+								
+				mysqli_query($conexion,$query);	
+			default:
+				break;
+		}								
+	}
+	if(isset($_POST["Eliminar"])){	
+		$p1 = (int)$_POST["a"];
+		switch($flag){
+			case 0:
+				//MAQUINAS	
+				$query = "CALL eliminarMaquina($p1);";
+			case 1:
+				//TECNICOS
+				$query = "CALL eliminarTecnico($p1);";
+				break;
+			case 2:
+				//COMERCIOS
+				$query = "CALL eliminarComercio($p1);";
+				break;
+			case 3:
+				//SUMINISTRO
+				$query = "CALL eliminarSuministro($p1);";
+				break;
+			case 4:
+				//PROVEEDOR
+				$query = "CALL eliminarProveedor($p1);";
+				break;
+			default:
+				break;
+		}	
+		
+															
+		mysqli_query($conexion,$query);	
+	}
+?>
 	
   <h1 class="display-3"></h1>
   	<br>
         	<div class="container">
+				<form method="post">
             	<section class="main row">
                     <div class="col-md-6">
                         <h2>Items</h2>
@@ -79,7 +163,7 @@
 						<?php
 							for ($i = 0; $i <count($array); $i++) {																										
 								echo "<form method=post>";
-										switch($flag){
+									switch($flag){
 										case 0:
 											//MAQUINAS																						
 										case 1:
@@ -89,6 +173,14 @@
 										case 2:
 											//COMERCIOS
 											echo "<input type=submit name=".$i." value=".$array[$i][3]." class=list-group-item list-group-item-action>";
+											break;
+										case 3:
+											//SUMINSITRO
+											echo "<input type=submit name=".$i." value=".$array[$i][0]." class=list-group-item list-group-item-action>";
+											break;
+										case 4:
+											//PROVEEDOR
+											echo "<input type=submit name=".$i." value=".$array[$i][1]." class=list-group-item list-group-item-action>";
 											break;
 										default:
 											break;
@@ -103,79 +195,127 @@
 						
 						<h1>Modificacion</h1>
 						<?php				
-						for ($i = 0; $i <count($array); $i++) {	
-							if(isset($_POST[(string)$i])){								
-								$posActual = $i;
-								break;
+							for ($i = 0; $i <count($array); $i++) {	
+								if(isset($_POST[(string)$i])){								
+									$posActual = $i;
+									break;
+								}
+								$posActual = 0;
 							}
-							$posActual = 0;
-						}
-						switch($flag){
-							case 0:
-								//MAQUINAS
-								echo "<div class=input-group-prepend>
-										<span class=input-group-text id=basic-addon1>id Maquina</span>
-										<input type=text name=1 value=".$array[$posActual][0]." class=form-control aria-describedby=basic-addon1>
-									</div>";
-								echo "<div class=input-group-prepend>
-										<span class=input-group-text id=basic-addon1>Nombre de maquina</span>
-										<input type=text name=2 value=".$array[$posActual][1]." class=form-control aria-describedby=basic-addon1>
-									</div>";
-								echo "<div class=input-group-prepend>
-										<span class=input-group-text id=basic-addon1>Esta operativa</span>
-										<input type=text name=3 value=".$array[$posActual][2]." class=form-control aria-describedby=basic-addon1>
-									</div>";
-								echo "<div class=input-group-prepend>
-										<span class=input-group-text id=basic-addon1>Ganancia</span>
-										<input type=text name=4 value=".$array[$posActual][3]." class=form-control aria-describedby=basic-addon1>
-									</div>";
-								echo "<div class=input-group-prepend>
-										<span class=input-group-text id=basic-addon1>id Tecnico</span>
-										<input type=text name=5 value=".$array[$posActual][4]." class=form-control aria-describedby=basic-addon1>
-									</div>";
-								echo "<div class=input-group-prepend>
+							switch($flag){
+								case 0:
+									//MAQUINAS
+									
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>id Maquina</span>
+											<input type=text id=a name=a value=".$array[$posActual][0]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Nombre de maquina</span>
+											<input type=text name=b value=".$array[$posActual][1]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Esta operativa</span>
+											<input type=text name=c value=".$array[$posActual][2]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Ganancia</span>
+											<input type=text name=d value=".$array[$posActual][3]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>id Tecnico</span>
+											<input type=text name=e value=".$array[$posActual][4]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>id Suministro</span>
+											<input type=text name=f value=".$array[$posActual][5]." class=form-control aria-describedby=basic-addon1>
+										</div>";								
+																									
+									break;
+								case 1:
+									//TECNICOS
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>id Tecnico</span>
+											<input type=text id=a name=a value=".$array[$posActual][0]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Nombre de tecnico</span>
+											<input type=text name=b value=".$array[$posActual][1]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Reparaciones</span>
+											<input type=text name=c value=".$array[$posActual][2]." class=form-control aria-describedby=basic-addon1>
+										</div>";									
+									break;
+								case 2:
+									//COMERCIOS
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>id Tecnico</span>
+											<input type=text id=a name=a value=".$array[$posActual][0]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Cantidad Pagada</span>
+											<input type=text name=b value=".$array[$posActual][1]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Recaudacion</span>
+											<input type=text name=c value=".$array[$posActual][2]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Nombre Comercio</span>
+											<input type=text name=d value=".$array[$posActual][3]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Porcentaje Extra</span>
+											<input type=text name=e value=".$array[$posActual][4]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									echo "<div class=input-group-prepend>
+											<span class=input-group-text id=basic-addon1>Tipo Comercio</span>
+											<input type=text name=f value=".$array[$posActual][5]." class=form-control aria-describedby=basic-addon1>
+										</div>";
+									break;
+								case 3:
+									//SUMINISTRO
+									echo "<div class=input-group-prepend>
 										<span class=input-group-text id=basic-addon1>id Suministro</span>
-										<input type=text name=6 value=".$array[$posActual][5]." class=form-control aria-describedby=basic-addon1>
-									</div>";								
-								break;
-							case 1:
-								//TECNICOS
-								
-								break;
-							case 2:
-								//COMERCIOS
-								
-								break;
-							default:
-								break;
-						}
+										<input type=text id=a name=a value=".$array[$posActual][0]." class=form-control aria-describedby=basic-addon1>
+									</div>";
+									break;
+								case 4:
+									//PROVEEDOR
+									echo "<div class=input-group-prepend>
+										<span class=input-group-text id=basic-addon1>id Proveedor</span>
+										<input type=text name=a value=".$array[$posActual][0]." class=form-control aria-describedby=basic-addon1>
+									</div>";
+									echo "<div class=input-group-prepend>
+										<span class=input-group-text id=basic-addon1>Nombre Proveedor</span>
+										<input type=text name=b value=".$array[$posActual][1]." class=form-control aria-describedby=basic-addon1>
+									</div>";
+									break;
+								default:
+									break;
+							}
+							
 						?>
 						<br>
 						<section class="main row">
-						
-							<div class="col-md-3">		
-								
-								<input type="submit" name="gg" value= "Modificar" id="Modificar" class="list-group-item list-group-item-action">
-								
-							</div>	
+							<div class="col-md-3">									
+								<input type="submit" name="Modificar" value= "Modificar" id="Modificar" class="list-group-item list-group-item-action">
+							</div>									
 							<div class="col-md-3">									
 							</div>	
 							<div class="col-md-3">		
 								
-								<input type="submit" name="gg" value= "Eliminar" id="Eliminar" class="list-group-item list-group-item-action">
+								<input type="submit" name="Eliminar" value= "Eliminar" id="Eliminar" class="list-group-item list-group-item-action">
 								
 							</div>	
 						</section>
                     </div>
 					                
                 </section>
-				<
+				</form>
 
             </div>
-			
-				
-                   
-    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
