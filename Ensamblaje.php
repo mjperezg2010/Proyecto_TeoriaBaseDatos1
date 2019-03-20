@@ -16,6 +16,9 @@
   
   <!-- Variables globales  -->
   <?php
+	$arraySuministros=array();
+	$arrayProveedores=array();
+	$arrayTecnicos=array();
 	$numeroMinorista=0;
 	$numeroMayorista=3;
 	$idComercio="";
@@ -45,7 +48,7 @@
 	//CARGAR PROVEEDORES
 	$query="SELECT * FROM proveedor";
 	$resultados=mysqli_query($conexion,$query);	
-	$arrayProveedores=array();
+	
 	$cont = 0;
 	while(($fila=mysqli_fetch_row($resultados))){
 		for ($i = 0; $i <count($fila); $i++) {		
@@ -121,7 +124,7 @@
 									$query='SELECT * FROM suministro WHERE idProveedor = '.apcu_fetch('idProveedorActual');
 									$resultados=mysqli_query($conexion,$query);
 									
-									$arraySuministros=array();
+									//$arraySuministros=array();
 									$cont = 0;
 									while(($fila=mysqli_fetch_row($resultados))){
 										for ($i = 0; $i <count($fila); $i++) {		
@@ -147,7 +150,7 @@
 								$query='SELECT * FROM tecnico';
 								$resultados=mysqli_query($conexion,$query);
 								
-								$arrayTecnicos=array();
+								
 								$cont = 0;
 								while(($fila=mysqli_fetch_row($resultados))){
 									for ($i = 0; $i <count($fila); $i++) {		
