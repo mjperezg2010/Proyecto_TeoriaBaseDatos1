@@ -15,10 +15,9 @@
   <body>  
 
 	<?php
-		//session_start();
-		//ob_start();
-		//$flag = $_SESSION['indicador'];
-		$flag = 0 ;
+		session_start();
+		ob_start();
+		$flag = $_SESSION['flag'];		
 		$db_host="localhost";
 		$db_nombre="maquinasrecreativas";	
 		$db_usuario="root";
