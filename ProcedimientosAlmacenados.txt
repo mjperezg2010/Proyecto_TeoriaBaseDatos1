@@ -7,3 +7,31 @@ CREATE PROCEDURE insertarMaquina (p1 INT,p2 varchar(45),p3 varchar(30),p4 INT,p5
     	INSERT INTO `maquinas` (`idMaquina`, `nombreMaquina`, `EstaOperativa`, `Ganancia`, `idTecnico`, `idSuministro`, `idComercio`) VALUES (p1,p2,p3,p4,p5,p6,p7);
     END//
 delimiter ;
+
+
+--Crea las vista para informes
+
+use maquinasrecreativas;
+
+delimiter //
+CREATE PROCEDURE crearInformes ()
+    BEGIN
+    	DROP VIEW IF EXISTS informeGGminoristas;
+        CREATE VIEW informeGGminoristas AS
+          	SELECT Nombre, CantidadPagada, Recaudacion
+            FROM comercio
+            WHERE TipoComercio = "Minorista";
+
+        DROP VIEW IF EXISTS informeGGmayoristas;
+        CREATE VIEW informeGGmayoristas AS
+          	SELECT Nombre, Recaudacion, PorcentajeExtra
+            FROM comercio
+            WHERE TipoComercio = "Mayorista";
+
+        DROP VIEW IF EXISTS informeIND;
+        CREATE VIEW informeIND AS
+          	SELECT idcomercio,Nombre, TipoComercio
+            FROM comercio;
+
+    END//
+delimiter ;
