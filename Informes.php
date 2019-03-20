@@ -22,7 +22,6 @@
 		$conexion=mysqli_connect($db_host,$db_usuario,$db_contra,$db_nombre);
 		mysqli_set_charset($conexion,"utf8");
 
-
 		$query = "CALL crearInformes();";					
 		mysqli_query($conexion,$query);	
 		
